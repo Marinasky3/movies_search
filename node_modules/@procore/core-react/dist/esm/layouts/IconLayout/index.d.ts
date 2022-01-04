@@ -1,0 +1,1 @@
+export { IconLayout } from './IconLayout';

@@ -6,19 +6,40 @@ import img from '../../img/noPoster.jpeg'
 import cinema_tools from '../../img/cinema_tools.jpeg'
 import './MovieDetailsPage.scss'
 
+interface IMovieDetails{
+    genres: Array<{name: string }> //Array<{ id: number, name: string }> [key: string]: (string | number | [] | {}) 
+    release_date: string
+    poster_path: string
+    backdrop_path: string
+    title: string
+    tagline: string
+    vote_average: number
+    vote_count: number
+    budget: number
+    revenue: number
+    production_countries: Array<{name: string }>
+    runtime: number
+    production_companies: Array<{name: string, logo_path: string | null}>
+    overview: string
+}
+
 export const MovieDetailsPage = () => {
  
     const queryParams: URLSearchParams = new URLSearchParams(window.location.search);
     console.log( 'queryParams', queryParams)
     const movieId: string | null = queryParams.get('movieId');
 
-    const [ movieDetails, setMovieDetails ] = useState()
+    const [ movieDetails, setMovieDetails ] = useState <IMovieDetails | null> (null)
+
+
+        const movieGenre: string[] | undefined = movieDetails?.genres.reduce((sum: string[], current: {name: string} )=> [ ...sum, current.name], [] )
+        const releaseDate: Date = movieDetails ? new Date(movieDetails!.release_date) : new Date(1)
+        const releaseDateDay: number | undefined = releaseDate.getDay()
+        const releaseDateMonth: number | undefined  = (releaseDate.getMonth()) + 1
+        const releaseDateYear: number  = releaseDate.getFullYear()
+
+    
  
-    const movieGenre: string[] = movieDetails?.genres?.reduce((sum, current)=> [ ...sum, current.name], [] )
-    const releaseDate: Date = new Date(movieDetails?.release_date)
-    const releaseDateDay: number = releaseDate.getDay()
-    const releaseDateMonth: number  = (releaseDate.getMonth()) + 1
-    const releaseDateYear: number  = releaseDate.getFullYear()
 
 
     const getNiceNumberWithSpace = (number: number): string => {
@@ -45,7 +66,7 @@ export const MovieDetailsPage = () => {
 
     useEffect(()=>{
         axios.get(`https://api.themoviedb.org/3/movie/${movieId}?api_key=9c4ab0b19a0403736cc569bf558c3ec8&language=en-US`)
-        .then( (response: {data: []}): void => {
+        .then( (response): void => {
             // handle success
             console.log(response.data);
             setMovieDetails(response.data)

@@ -66,7 +66,10 @@ export const LayoutContainer /*: React.FC<ILayoutContainer>*/ = (props) => {
     }
 
     useEffect(()=>{
-        handleSearchMovies()
+        if (search){
+
+            handleSearchMovies()
+        }
         
     },[search])
 
