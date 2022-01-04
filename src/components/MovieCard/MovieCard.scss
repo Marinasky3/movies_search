@@ -1,0 +1,39 @@
+.movieCard_movieBackground{
+    height: 600px;
+    background-image: url('../../img/noPoster.jpeg');
+    background-position: center;
+}
+.movieCard_ratingWrapper{
+    margin-top: 10px;
+    display: flex;
+    justify-content: space-between;
+}
+.movieCard_movieLink{
+    text-decoration: none;
+    color: black;
+}
+a:hover .movieCard_movieActive{
+    height: 600px;
+    transition: height 300ms ease;
+}
+.movieCard_movieActive{
+    padding: 0 24px;
+    box-sizing: border-box;
+    position: absolute;
+    overflow: hidden;
+    width: 420px;
+    height: 0px;
+    background-color: rgba(0, 0, 0, .7);
+    transition: height 300ms ease;
+}
+.movieCard_title{
+    margin-top: 190px;
+    font-size: 28px;
+
+    font-weight: 800;
+    color: white;
+}
+.movieCard_releaseYear{
+    margin-top: 15px;
+    color: white
+}
